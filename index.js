@@ -55,25 +55,13 @@ searchInput.addEventListener("input", (e) => {
 
 const getNews = async () => {
   container.innerHTML = "";
-  try {
-    let response = await fetch(requestURL, {
-      headers: {
-        "X-Api-Key": apiKey
-      }
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch data from API");
-    }
-    let data = await response.json();
-    if (data.articles && data.articles.length > 0) {
-      generalUI(data.articles);
-    } else {
-      throw new Error("No articles found in response");
-    }
-  } catch (error) {
-    console.error(error);
-    container.innerHTML = "<p>Data unavailable. Please try again later.</p>";
+  let response = await fetch(requestURL);
+  if (!response.ok) {
+    alert("data uvailable");
+    return false;
   }
+  let data = await response.json();
+  generalUI(data.articles);
 };
 
 const init = () => {
